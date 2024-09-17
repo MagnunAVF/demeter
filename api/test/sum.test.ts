@@ -1,9 +1,9 @@
-import sum from "../src/sum";
+import sum from '../src/sum'
 
 describe('sum', () => {
-    it('should sum 2 numbers', () => {
-        const result = sum(2, 3)
+  it('should sum 2 numbers', () => {
+    const result = sum(2, 3)
 
-        expect(result).toBe(5);
-    });
-});
+    expect(result).toBe(5)
+  })
+})
