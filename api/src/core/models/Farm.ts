@@ -1,4 +1,4 @@
-import Crop from '../../crop/models/Crop'
+import Crop from './Crop'
 
 class Farm {
   name: string

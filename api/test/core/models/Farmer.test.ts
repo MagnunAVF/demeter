@@ -1,6 +1,6 @@
-import Farm from '../../../../src/core/farm/models/Farm'
-import Farmer from '../../../../src/core/farmer/models/Farmer'
-import DocumentValidator from '../../../../src/core/farmer/services/DocumentValidator'
+import Farm from '../../../src/core/models/Farm'
+import Farmer from '../../../src/core/models/Farmer'
+import DocumentValidator from '../../../src/core/validators/DocumentValidator'
 
 describe('Farmer Class', () => {
   let mockDocumentValidator: jest.Mocked<DocumentValidator>

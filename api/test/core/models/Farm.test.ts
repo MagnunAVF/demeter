@@ -1,5 +1,5 @@
-import Crop from '../../../../src/core/crop/models/Crop'
-import Farm from '../../../../src/core/farm/models/Farm'
+import Crop from '../../../src/core/models/Crop'
+import Farm from '../../../src/core/models/Farm'
 
 describe('Farm Class', () => {
   let name: string, city: string, state: string

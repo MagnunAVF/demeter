@@ -1,5 +1,5 @@
-import Farm from '../../farm/models/Farm'
-import DocumentValidator from '../services/DocumentValidator'
+import Farm from './Farm'
+import DocumentValidator from '../validators/DocumentValidator'
 
 class Farmer {
   name: string

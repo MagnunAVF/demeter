@@ -1,4 +1,4 @@
-import Crop from '../../../../src/core/crop/models/Crop'
+import Crop from '../../../src/core/models/Crop'
 
 describe('Crop Class', () => {
   it('should create a crop instance with correct name', () => {
