@@ -5,6 +5,10 @@ import FarmerRepository from '../../core/repository/FarmerRepository'
 import Crop from '../../core/models/Crop'
 import Farm from '../../core/models/Farm'
 import DocumentValidator from '../../core/validators/DocumentValidator'
+import {
+  FarmerNotExistsError,
+  InvalidDbDataError,
+} from '../../core/shared/Errors'
 
 type CropData = {
   id: string
@@ -74,7 +78,7 @@ class PgFarmerRepository implements FarmerRepository {
 
   // DB to model wrapper
   private handleFarmerData(farmerData: any): Farmer {
-    if (!farmerData) throw Error('Invalid data, empty info!')
+    if (!farmerData) throw new InvalidDbDataError()
 
     const farm = farmerData.farm
       ? new Farm(
@@ -91,7 +95,7 @@ class PgFarmerRepository implements FarmerRepository {
         )
       : null
 
-    if (!farm) throw Error('Invalid data, farmer without a farm!')
+    if (!farm) throw new InvalidDbDataError()
 
     return new Farmer(
       farmerData.name,
@@ -218,7 +222,7 @@ class PgFarmerRepository implements FarmerRepository {
     })
 
     if (!farmer) {
-      throw new Error('Farmer not found')
+      throw new FarmerNotExistsError()
     }
 
     await this.prisma.farmer.delete({
@@ -232,7 +236,7 @@ class PgFarmerRepository implements FarmerRepository {
     })
 
     if (!farmer) {
-      throw new Error('Farmer not found')
+      throw new FarmerNotExistsError()
     }
 
     await this.prisma.farmer.delete({

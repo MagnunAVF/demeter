@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Express } from 'express'
 import DeleteFarmer from '../../core/useCases/DeleteFarmer'
+import { FarmerNotExistsError } from '../../core/shared/Errors'
 
 class DeleteFarmerController {
   constructor(server: Express, useCase: DeleteFarmer) {
@@ -10,11 +11,15 @@ class DeleteFarmerController {
         await useCase.execute(document)
         console.log(`[INFO] Farmer with document ${document} deleted!`)
 
-        resp.status(204).send({})
+        resp.status(204).send()
       } catch (error: any) {
         console.log(`Error Creating Farm: ${error}`)
 
-        resp.status(500).send('Internal Server Error')
+        if (error instanceof FarmerNotExistsError) {
+          resp.status(404).send(error.message)
+        } else {
+          resp.status(500).send('Internal Server Error')
+        }
       }
     })
   }

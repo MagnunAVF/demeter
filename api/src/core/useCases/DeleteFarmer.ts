@@ -1,4 +1,5 @@
 import FarmerRepository from '../repository/FarmerRepository'
+import { FarmerNotExistsError } from '../shared/Errors'
 import UseCase from './UseCase'
 
 class DeleteFarmer implements UseCase<string, void> {
@@ -7,7 +8,7 @@ class DeleteFarmer implements UseCase<string, void> {
   async execute(document: string): Promise<void> {
     const farmerExists = await this.farmerRepository.getByDocument(document)
     if (!farmerExists) {
-      throw Error('Farmer not exists!')
+      throw new FarmerNotExistsError()
     }
 
     this.farmerRepository.deleteByDocument(document)

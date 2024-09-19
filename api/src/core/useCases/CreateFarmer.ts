@@ -1,5 +1,6 @@
 import Farmer from '../models/Farmer'
 import FarmerRepository from '../repository/FarmerRepository'
+import { FarmerExistsError } from '../shared/Errors'
 import Id from '../shared/Id'
 import DocumentValidator from '../validators/DocumentValidator'
 import UseCase from './UseCase'
@@ -16,7 +17,7 @@ class CreateFarmer implements UseCase<Farmer, void> {
       farmer.document
     )
     if (farmerExists) {
-      throw Error('Farmer already exists!')
+      throw new FarmerExistsError()
     }
 
     const newFarmer: Farmer = new Farmer(

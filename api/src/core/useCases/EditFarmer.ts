@@ -1,5 +1,6 @@
 import Farmer from '../models/Farmer'
 import FarmerRepository from '../repository/FarmerRepository'
+import { FarmerNotExistsError } from '../shared/Errors'
 import DocumentValidator from '../validators/DocumentValidator'
 import UseCase from './UseCase'
 
@@ -14,7 +15,7 @@ class EditFarmer implements UseCase<Farmer, void> {
       farmer.document
     )
     if (!farmerExists) {
-      throw Error('Farmer not exists!')
+      throw new FarmerNotExistsError()
     }
 
     const editedFarmer: Farmer = new Farmer(

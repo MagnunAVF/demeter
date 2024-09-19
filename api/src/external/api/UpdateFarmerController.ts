@@ -6,6 +6,11 @@ import Farmer from '../../core/models/Farmer'
 import CpfAndCnpjValidator from '../validators/CpfAndCnpjValidator'
 import UpdateFarmerDto from './dtos/UpdateFarmerDto'
 import EditFarmer from '../../core/useCases/EditFarmer'
+import {
+  FarmerNotExistsError,
+  InvalidDocumentError,
+  InvalidTotalAreaError,
+} from '../../core/shared/Errors'
 
 class UpdateFarmerController {
   private transformDtoToModel(farmerData: UpdateFarmerDto): Farmer {
@@ -40,9 +45,18 @@ class UpdateFarmerController {
 
         resp.status(200).send({})
       } catch (error: any) {
-        console.log(`Error Creating Farm: ${error}`)
+        console.log(`Error Updating Farm: ${error}`)
 
-        resp.status(500).send('Internal Server Error')
+        if (error instanceof FarmerNotExistsError) {
+          resp.status(404).send(error.message)
+        } else if (
+          error instanceof InvalidTotalAreaError ||
+          error instanceof InvalidDocumentError
+        ) {
+          resp.status(400).send(error.message)
+        } else {
+          resp.status(500).send('Internal Server Error')
+        }
       }
     })
   }

@@ -2,6 +2,7 @@ import Crop from '../../../src/core/models/Crop'
 import Farm from '../../../src/core/models/Farm'
 import Farmer from '../../../src/core/models/Farmer'
 import FarmerRepository from '../../../src/core/repository/FarmerRepository'
+import { FarmerNotExistsError } from '../../../src/core/shared/Errors'
 import EditFarmer from '../../../src/core/useCases/EditFarmer'
 import DocumentValidator from '../../../src/core/validators/DocumentValidator'
 
@@ -45,7 +46,7 @@ describe('EditFarmer Use Case', () => {
     )
 
     await expect(editFarmer.execute(farmer)).rejects.toThrow(
-      'Farmer not exists!'
+      FarmerNotExistsError
     )
   })
 

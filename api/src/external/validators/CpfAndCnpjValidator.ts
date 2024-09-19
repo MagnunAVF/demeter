@@ -1,5 +1,6 @@
 import { cpf, cnpj } from 'cpf-cnpj-validator'
 import DocumentValidator from '../../core/validators/DocumentValidator'
+import { InvalidDocumentError } from '../../core/shared/Errors'
 
 class CpfAndCnpjValidator implements DocumentValidator {
   validate(document: string) {
@@ -8,7 +9,7 @@ class CpfAndCnpjValidator implements DocumentValidator {
     const validDocument = isValidCpf || isValidCnpj
 
     if (!validDocument) {
-      throw Error('Invalid document. Must be a valid CPF or CNPJ')
+      throw new InvalidDocumentError()
     }
   }
 }

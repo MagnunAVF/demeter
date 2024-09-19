@@ -1,3 +1,4 @@
+import { InvalidDocumentError } from '../../../src/core/shared/Errors'
 import CpfAndCnpjValidator from '../../../src/external/validators/CpfAndCnpjValidator'
 
 describe('CpfAndCnpjValidator', () => {
@@ -22,9 +23,7 @@ describe('CpfAndCnpjValidator', () => {
   it('should throw an error for an invalid CPF', () => {
     const invalidCpf = '123.456.789-00'
 
-    expect(() => validator.validate(invalidCpf)).toThrow(
-      'Invalid document. Must be a valid CPF or CNPJ'
-    )
+    expect(() => validator.validate(invalidCpf)).toThrow(InvalidDocumentError)
   })
 
   it('should validate a valid CNPJ', () => {
@@ -42,16 +41,14 @@ describe('CpfAndCnpjValidator', () => {
   it('should throw an error for an invalid CNPJ', () => {
     const invalidCnpj = '12.345.678/0001-00'
 
-    expect(() => validator.validate(invalidCnpj)).toThrow(
-      'Invalid document. Must be a valid CPF or CNPJ'
-    )
+    expect(() => validator.validate(invalidCnpj)).toThrow(InvalidDocumentError)
   })
 
   it('should throw an error for a document that is neither a valid CPF nor a valid CNPJ', () => {
     const invalidDocument = '11111111111'
 
     expect(() => validator.validate(invalidDocument)).toThrow(
-      'Invalid document. Must be a valid CPF or CNPJ'
+      InvalidDocumentError
     )
   })
 })
