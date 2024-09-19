@@ -4,6 +4,8 @@ import CpfAndCnpjValidator from './external/validators/CpfAndCnpjValidator'
 import CreateFarmer from './core/useCases/CreateFarmer'
 import Uuid from './external/shared/Uuid'
 import CreateFarmerController from './external/api/CreateFarmerController'
+import UpdateFarmerController from './external/api/UpdateFarmerController'
+import EditFarmer from './core/useCases/EditFarmer'
 
 const app = express()
 const PORT = 3000
@@ -26,9 +28,11 @@ const createFarmer = new CreateFarmer(
   documentValidator,
   idGenerator
 )
+const updateFarmer = new EditFarmer(farmerRepository, documentValidator)
 
 // routes and controllers
 new CreateFarmerController(app, createFarmer)
+new UpdateFarmerController(app, updateFarmer)
 
 app.listen(PORT, () => {
   console.log(`Running in http://localhost:${PORT}!`)
