@@ -36,6 +36,7 @@
     "typescript-eslint": "^8.6.0"
   },
   "dependencies": {
+    "cpf-cnpj-validator": "^1.0.3",
     "express": "^4.21.0"
   }
 }
