@@ -1,6 +1,7 @@
 import Crop from './Crop'
 
 class Farm {
+  id?: string
   name: string
   city: string
   state: string
@@ -16,7 +17,8 @@ class Farm {
     totalArea: number,
     arableArea: number,
     vegetationArea: number,
-    crops: Crop[]
+    crops: Crop[],
+    id?: string
   ) {
     this.validateTotalArea(totalArea, arableArea, vegetationArea)
 
@@ -27,6 +29,7 @@ class Farm {
     this.arableArea = arableArea
     this.vegetationArea = vegetationArea
     this.crops = crops
+    this.id = id
   }
 
   validateTotalArea(
