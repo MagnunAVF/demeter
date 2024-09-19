@@ -1,11 +1,13 @@
 import express from 'express'
 import PgFarmerRepository from './external/repository/PgFarmerRepository'
 import CpfAndCnpjValidator from './external/validators/CpfAndCnpjValidator'
-import CreateFarmer from './core/useCases/CreateFarmer'
 import Uuid from './external/shared/Uuid'
 import CreateFarmerController from './external/api/CreateFarmerController'
 import UpdateFarmerController from './external/api/UpdateFarmerController'
+import DeleteFarmerController from './external/api/DeleteFarmerController'
 import EditFarmer from './core/useCases/EditFarmer'
+import CreateFarmer from './core/useCases/CreateFarmer'
+import DeleteFarmer from './core/useCases/DeleteFarmer'
 
 const app = express()
 const PORT = 3000
@@ -29,10 +31,12 @@ const createFarmer = new CreateFarmer(
   idGenerator
 )
 const updateFarmer = new EditFarmer(farmerRepository, documentValidator)
+const deleteFarmer = new DeleteFarmer(farmerRepository)
 
 // routes and controllers
 new CreateFarmerController(app, createFarmer)
 new UpdateFarmerController(app, updateFarmer)
+new DeleteFarmerController(app, deleteFarmer)
 
 app.listen(PORT, () => {
   console.log(`Running in http://localhost:${PORT}!`)
