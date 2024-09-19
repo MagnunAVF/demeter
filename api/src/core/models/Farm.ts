@@ -1,5 +1,5 @@
 import Crop from './Crop'
-
+import { InvalidTotalAreaError } from '../shared/Errors'
 class Farm {
   id?: string
   name: string
@@ -38,9 +38,7 @@ class Farm {
     vegetationArea: number
   ): void {
     if (arableArea + vegetationArea > totalArea) {
-      throw Error(
-        'The sum of arable and vegetation area cannot exceed total area'
-      )
+      throw new InvalidTotalAreaError()
     }
   }
 }

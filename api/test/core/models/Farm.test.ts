@@ -1,5 +1,6 @@
 import Crop from '../../../src/core/models/Crop'
 import Farm from '../../../src/core/models/Farm'
+import { InvalidTotalAreaError } from '../../../src/core/shared/Errors'
 
 describe('Farm Class', () => {
   let name: string, city: string, state: string
@@ -27,7 +28,7 @@ describe('Farm Class', () => {
   it('should throw an error if arable and vegetation areas exceed total area', () => {
     expect(() => {
       new Farm(name, city, state, 100, 60, 50, [])
-    }).toThrow('The sum of arable and vegetation area cannot exceed total area')
+    }).toThrow(InvalidTotalAreaError)
   })
 
   it('should not throw an error if arable and vegetation areas are equal to total area', () => {

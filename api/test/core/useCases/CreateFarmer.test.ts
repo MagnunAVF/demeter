@@ -2,6 +2,7 @@ import Crop from '../../../src/core/models/Crop'
 import Farm from '../../../src/core/models/Farm'
 import Farmer from '../../../src/core/models/Farmer'
 import FarmerRepository from '../../../src/core/repository/FarmerRepository'
+import { FarmerExistsError } from '../../../src/core/shared/Errors'
 import Id from '../../../src/core/shared/Id'
 import CreateFarmer from '../../../src/core/useCases/CreateFarmer'
 import DocumentValidator from '../../../src/core/validators/DocumentValidator'
@@ -62,7 +63,7 @@ describe('CreateFarmer Use Case', () => {
     )
 
     await expect(createFarmer.execute(farmer)).rejects.toThrow(
-      'Farmer already exists!'
+      FarmerExistsError
     )
   })
 

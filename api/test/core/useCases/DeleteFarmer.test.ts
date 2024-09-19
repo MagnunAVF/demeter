@@ -2,6 +2,7 @@ import Crop from '../../../src/core/models/Crop'
 import Farm from '../../../src/core/models/Farm'
 import Farmer from '../../../src/core/models/Farmer'
 import FarmerRepository from '../../../src/core/repository/FarmerRepository'
+import { FarmerNotExistsError } from '../../../src/core/shared/Errors'
 import DeleteFarmer from '../../../src/core/useCases/DeleteFarmer'
 import DocumentValidator from '../../../src/core/validators/DocumentValidator'
 
@@ -34,7 +35,7 @@ describe('DeleteFarmer Use Case', () => {
     const document = '12345678901'
 
     await expect(deleteFarmer.execute(document)).rejects.toThrow(
-      'Farmer not exists!'
+      FarmerNotExistsError
     )
   })
 
