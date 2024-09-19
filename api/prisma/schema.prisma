@@ -28,7 +28,7 @@ model Farm {
   totalArea      Float
   arableArea     Float
   vegetationArea Float
-  farmer         Farmer   @relation(fields: [farmerId], references: [id])
+  farmer         Farmer   @relation(fields: [farmerId], references: [id], onDelete: Cascade)
   farmerId       String   @unique
   crops          FarmCrops[]
 }
