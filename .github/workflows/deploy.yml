@@ -21,21 +21,26 @@ jobs:
       - name: Cache node_modules
         uses: actions/cache@v3
         with:
-          path: node_modules
+          path: api/node_modules
           key: ${{ runner.os }}-node-${{ hashFiles('package-lock.json') }}
           restore-keys: |
             ${{ runner.os }}-node-
 
       - name: Install dependencies
-        run: npm install
+        run: |
+          cd api
+          npm install
 
       - name: Create .env file
         run: |
+          cd api
           echo 'ENV=hml' > .env
           echo 'DATABASE_URL="${{ secrets.DATABASE_URL }}"' >> .env
 
       - name: Build the project
-        run: npm run build
+        run: |
+          cd api
+          npm run build
 
       - name: Install Serverless Framework
         run: npm install -g serverless
@@ -48,4 +53,6 @@ jobs:
           aws-region: us-east-1
 
       - name: Deploy to AWS
-        run: serverless deploy --stage hml
+        run: |
+          cd api
+          serverless deploy --stage hml
