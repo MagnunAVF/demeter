@@ -20,6 +20,7 @@ In `api` dir:
 
 ```shell
 npm i
+cp .env.sample .env
 npx prisma migrate deploy
 npm run dev
 ```
