@@ -16,7 +16,7 @@ class PgDashboardRepository implements DashboardRepository {
         totalArea: true,
       },
     })
-    const data = sumTotalArea['_sum']['totalArea']
+    const data = sumTotalArea['_sum']['totalArea'] ?? 0
 
     return data
   }
