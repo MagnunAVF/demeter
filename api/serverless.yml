@@ -9,8 +9,8 @@ provider:
     securityGroupIds:
       - ${env:SG_ID}
     subnetIds:
-      - ${env:SUBNET_ID1}
-      - ${env:SUBNET_ID2}
+      - ${env:SUBNET1_ID}
+      - ${env:SUBNET2_ID}
 
 plugins:
   - serverless-dotenv-plugin
