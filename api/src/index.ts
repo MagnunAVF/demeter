@@ -8,6 +8,9 @@ import DeleteFarmerController from './external/api/DeleteFarmerController'
 import EditFarmer from './core/useCases/EditFarmer'
 import CreateFarmer from './core/useCases/CreateFarmer'
 import DeleteFarmer from './core/useCases/DeleteFarmer'
+import Dashboard from './core/useCases/Dashboard'
+import PgDashboardRepository from './external/repository/PgDashboardRepository'
+import DashboardController from './external/api/DashboardController'
 
 const app = express()
 const PORT = 3000
@@ -23,6 +26,7 @@ app.get('/', async (req, res) => {
 const idGenerator = new Uuid()
 const documentValidator = new CpfAndCnpjValidator()
 const farmerRepository = new PgFarmerRepository(documentValidator)
+const dashboardRepository = new PgDashboardRepository()
 
 // use cases
 const createFarmer = new CreateFarmer(
@@ -32,11 +36,13 @@ const createFarmer = new CreateFarmer(
 )
 const updateFarmer = new EditFarmer(farmerRepository, documentValidator)
 const deleteFarmer = new DeleteFarmer(farmerRepository)
+const dashboard = new Dashboard(dashboardRepository)
 
 // routes and controllers
 new CreateFarmerController(app, createFarmer)
 new UpdateFarmerController(app, updateFarmer)
 new DeleteFarmerController(app, deleteFarmer)
+new DashboardController(app, dashboard)
 
 app.listen(PORT, () => {
   console.log(`Running in http://localhost:${PORT}!`)
