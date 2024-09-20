@@ -4,6 +4,7 @@ Instructions to use local environment.
 
 ## Prerequisites
 
+- [Nodejs](https://nodejs.org/en)
 - [Docker](https://docs.docker.com/engine/install/)
 - [Docker Compose](https://docs.docker.com/compose/install/)
 
@@ -13,6 +14,14 @@ Run in terminal:
 
 ```shell
 docker-compose up -d
+```
+
+In `api` dir:
+
+```shell
+npm i
+npx prisma migrate deploy
+npm run dev
 ```
 
 To destroy the env:
