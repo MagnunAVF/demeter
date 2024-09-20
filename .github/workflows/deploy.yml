@@ -37,6 +37,11 @@ jobs:
           echo 'ENV=hml' > .env
           echo 'DATABASE_URL="${{ secrets.DATABASE_URL }}"' >> .env
 
+      - name: Generate Prisma Client
+        run: |
+          cd api
+          npx --yes prisma generate
+
       - name: Build the project
         run: |
           cd api
