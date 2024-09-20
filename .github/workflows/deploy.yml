@@ -65,6 +65,9 @@ jobs:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           SERVERLESS_ACCESS_KEY: ${{ secrets.SERVERLESS_ACCESS_KEY }}
+          SG_ID: ${{ secrets.SG_ID }}
+          SUBNET1_ID: ${{ secrets.SUBNET1_ID }}
+          SUBNET2_ID: ${{ secrets.SUBNET2_ID }}
         run: |
           cd api
           serverless deploy --stage hml
