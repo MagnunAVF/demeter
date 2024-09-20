@@ -1,0 +1,18 @@
+service: demeter
+
+provider:
+  name: aws
+  runtime: nodejs20.x
+  region: us-east-1
+  stage: ${env:ENV}
+
+plugins:
+  - serverless-dotenv-plugin
+
+functions:
+  api:
+    handler: ./dist/sls.main
+    events:
+      - http:
+          method: any
+          path: /{any+}
