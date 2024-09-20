@@ -36,6 +36,9 @@ jobs:
           cd api
           echo 'ENV=hml' > .env
           echo 'DATABASE_URL="${{ secrets.DATABASE_URL }}"' >> .env
+          echo 'SG_ID="${{ secrets.SG_ID }}"' >> .env
+          echo 'SUBNET1_ID="${{ secrets.SUBNET1_ID }}"' >> .env
+          echo 'SUBNET2_ID="${{ secrets.SUBNET2_ID }}"' >> .env
 
       - name: Generate Prisma Client
         run: |
