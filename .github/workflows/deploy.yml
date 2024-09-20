@@ -21,21 +21,34 @@ jobs:
       - name: Cache node_modules
         uses: actions/cache@v3
         with:
-          path: node_modules
+          path: api/node_modules
           key: ${{ runner.os }}-node-${{ hashFiles('package-lock.json') }}
           restore-keys: |
             ${{ runner.os }}-node-
 
       - name: Install dependencies
-        run: npm install
+        run: |
+          cd api
+          npm install
 
       - name: Create .env file
         run: |
+          cd api
           echo 'ENV=hml' > .env
           echo 'DATABASE_URL="${{ secrets.DATABASE_URL }}"' >> .env
+          echo 'SG_ID="${{ secrets.SG_ID }}"' >> .env
+          echo 'SUBNET1_ID="${{ secrets.SUBNET1_ID }}"' >> .env
+          echo 'SUBNET2_ID="${{ secrets.SUBNET2_ID }}"' >> .env
+
+      - name: Generate Prisma Client
+        run: |
+          cd api
+          npx --yes prisma generate
 
       - name: Build the project
-        run: npm run build
+        run: |
+          cd api
+          npm run build
 
       - name: Install Serverless Framework
         run: npm install -g serverless
@@ -48,4 +61,13 @@ jobs:
           aws-region: us-east-1
 
       - name: Deploy to AWS
-        run: serverless deploy --stage hml
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          SERVERLESS_ACCESS_KEY: ${{ secrets.SERVERLESS_ACCESS_KEY }}
+          SG_ID: ${{ secrets.SG_ID }}
+          SUBNET1_ID: ${{ secrets.SUBNET1_ID }}
+          SUBNET2_ID: ${{ secrets.SUBNET2_ID }}
+        run: |
+          cd api
+          serverless deploy --stage hml

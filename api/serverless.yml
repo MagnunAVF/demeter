@@ -5,6 +5,12 @@ provider:
   runtime: nodejs20.x
   region: us-east-1
   stage: ${env:ENV}
+  vpc:
+    securityGroupIds:
+      - ${env:SG_ID}
+    subnetIds:
+      - ${env:SUBNET1_ID}
+      - ${env:SUBNET2_ID}
 
 plugins:
   - serverless-dotenv-plugin
